@@ -43,14 +43,13 @@ def create_views():
     cursor = db.cursor()
     cursor.execute(top_articles)
     cursor.execute(errors)
-    db.commit()
     db.close()
 
 
 # Define a function to print results
 def print_results(queryResult, ending):
-    for res in queryResult:
-        print('\t' + str(res[0]) + ' --- ' + str(res[1]) + ' ' + ending)
+    for co in queryResult:
+        print('\t' + str(co[0]) + ' --- ' + str(co[1]) + ' ' + ending)
 
 
 if __name__ == '__main__':
