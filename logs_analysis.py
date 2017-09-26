@@ -69,4 +69,3 @@ if __name__ == '__main__':
     print("\n3. Days on which more than 1% of requests leading to errors: ")
     print_results(cursor.fetchall(), '%')
 db.close()
-
