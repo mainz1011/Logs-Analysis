@@ -1,9 +1,13 @@
+#! /usr/bin/env python3
 import psycopg2
+
 
 # Create a view for top_articles
 top_articles = "CREATE VIEW top_articles_view AS "\
-                 "SELECT title, author, count(*) AS views FROM articles, log "\
-                 "GROUP BY articles.title, articles.author "\
+                 "SELECT title, count(*) AS views "\
+                 "FROM log JOIN articles "\
+                 "ON log.path = concat('/article/', articles.slug) "\
+                 "GROUP BY articles.title "\
                  "ORDER BY views DESC;"
 
 # Select the top 3 popular articles from top_articles_view
@@ -12,8 +16,8 @@ top3_articles = "SELECT title, views FROM top_articles_view LIMIT 3;"
 # Select popular authors
 popular_authors = "SELECT authors.name AS name, "\
                     "sum(top_articles_view.views) AS author_views "\
-                  "FROM top_articles_view, authors "\
-                  "WHERE authors.id = top_articles_view.author "\
+                  "FROM top_articles_view JOIN authors "\
+                  "ON authors.id = top_articles_view.author "\
                   "GROUP BY name ORDER BY author_views DESC;"
 
 # Create an error view for log
