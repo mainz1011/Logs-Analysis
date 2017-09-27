@@ -18,8 +18,8 @@
 ### 4. Enter `\q` to exit from data exploration.
 
 ## Create views for the database
-### 1. Create view top_articles_view to reduce the complexity of creating queries for the first two question.
-### 2. Create view error_log_view to reduce the complexity of creating a query for the third question.
+### 1. Create the view top_articles_view to reduce the complexity of creating queries for the first two question.
+### 2. Create the view error_log_view to reduce the complexity of creating a query for the third question.
 
 ## Run Python file and get the results
 ### 1. Place logs_analysis.py inside the folder "vagrant".
