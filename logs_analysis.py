@@ -25,24 +25,17 @@ errors = "CREATE VIEW error_log_view "\
            "AS \"Percent Error\" FROM log "\
            "GROUP BY date(TIME) ORDER BY \"Percent Error\" DESC;"
 
-# Select days on which precent_error is more than 1%
+# Select days on which precent error is more than 1%
 errors_log = "SELECT * FROM error_log_view WHERE \"Percent Error\" > 1;"
 
 
-# Define functions to execute views
-def allviews():
-    db = psycopg2.connect("dbname=news")
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM top_article_view")
-    cursor.execute("SELECT * FROM error_log_view")
-    db.close()
-
-
+# Define a function to execute views
 def create_views():
     db = psycopg2.connect("dbname=news")
     cursor = db.cursor()
     cursor.execute(top_articles)
     cursor.execute(errors)
+    db.commit()
     db.close()
 
 
