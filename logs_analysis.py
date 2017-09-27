@@ -3,7 +3,6 @@ import psycopg2
 # Create a view for top_articles
 top_articles = "CREATE VIEW top_articles_view AS "\
                  "SELECT title, author, count(*) AS views FROM articles, log "\
-                 "WHERE log.path = concat(article, articles.slug) "\
                  "GROUP BY articles.title, articles.author "\
                  "ORDER BY views DESC;"
 
@@ -29,8 +28,8 @@ errors = "CREATE VIEW error_log_view "\
 errors_log = "SELECT * FROM error_log_view WHERE \"Percent Error\" > 1;"
 
 
-# Define a function to execute views
-def create_views():
+# Define a function to run queries with view
+def execute_views():
     db = psycopg2.connect("dbname=news")
     cursor = db.cursor()
     cursor.execute(top_articles)
@@ -39,12 +38,13 @@ def create_views():
     db.close()
 
 
-# Define a function to print results
+# Define a function to format results
 def print_results(queryResult, ending):
     for co in queryResult:
         print('\t' + str(co[0]) + ' --- ' + str(co[1]) + ' ' + ending)
 
 
+# Run queries and fetch results
 if __name__ == '__main__':
     db = psycopg2.connect("dbname=news")
     cursor = db.cursor()
